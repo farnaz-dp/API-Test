@@ -1,12 +1,12 @@
 
 import React from "react";
-import {Login} from "./Components/Login";
+import {Dashboard} from "./Components/Dashboard";
 
 function App() {
   return (
-    <div >
-    <Login name={"Asghar"} age={17} />
-    </div>
+      <div >
+        <Dashboard />
+      </div>
   );
 }
 
