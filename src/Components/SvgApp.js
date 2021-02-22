@@ -2,6 +2,7 @@
 import React from 'react'
 import {useState , useEffect , useRef} from 'react'
 import * as Snap from 'snapsvg-cjs';
+import {SvgContainer} from "./SvgContainer";
 
 
 const SvgApp = (props)=>{
@@ -14,8 +15,6 @@ const SvgApp = (props)=>{
 
         viewBox: "0 0 100 50" //TODO :: best resolution for 1920*1080 <Dynamic Model>
     });
-
-
 
 
     useEffect (()=>{
@@ -31,14 +30,24 @@ const SvgApp = (props)=>{
 
     },[])
 
-
-
-
-
-
+    const svgContainerRender = () => {
+        if (props.svgIsLoaded){
+            return (
+                <SvgContainer
+                    tabs={props.tabs}
+                    svgSnap={svg}
+                />
+            )
+        }
+        else
+        {
+            return null
+        }
+    }
 
     return(
         <div>
+            {svgContainerRender()}
         </div>
     )
 }
