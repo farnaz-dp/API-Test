@@ -28,7 +28,6 @@ const Login = (props) => {
                 })
                     .then( (response)=>{
                         // console.log(`Response : ${response}`)
-
                         if (response.status === 200){
                             console.log('Login,Response : ' , response.data)
                             setApiFetchState(true)
