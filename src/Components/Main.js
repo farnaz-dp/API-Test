@@ -54,7 +54,12 @@ const Main = (props)=> {
         if (isMap3dDataFetched & map3dDataState != null) {
             return(
 
-                <SvgApp svgUrl={map3dDataState.url} setSvgIsLoaded={setSvgIsLoaded}/>
+                <SvgApp
+                    svgUrl={map3dDataState.url}
+                    setSvgIsLoaded={setSvgIsLoaded}
+                    tabs={map3dDataState.table.tabs}
+                    svgIsLoaded={svgIsLoaded}
+                />
             )
         }
         else
