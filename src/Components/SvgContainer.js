@@ -15,6 +15,7 @@ const SvgContainer = (props) => {
                     table_name={tab.table_name}
                     sensors={tab.sensors}
                     svgSnap={props.svgSnap}
+                    key={index}
                 />
             )
 
