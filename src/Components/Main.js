@@ -1,9 +1,10 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from "axios";
-import {SvgApp} from "./SvgApp";
+import {SvgApp} from "./SVG/SvgApp";
 import {MoonLoader} from "react-spinners";
 import { css } from "@emotion/react";
+import {ContentApp} from "./Content/ContentApp";
 
 
 const override = css`
@@ -17,6 +18,9 @@ const Main = (props)=> {
     const [map3dDataState , setMap3dDataState] = useState(null)
     const [isMap3dDataFetched , setIsMap3dDataFetched] = useState(false)
     const [svgIsLoaded , setSvgIsLoaded] = useState(false)
+    const [svgObjectIdClick , setSvgObjectIdClick] = useState(null)
+    const [contentIsShow , setContentIsShow] = useState(false)
+
 
     useEffect( ()=>{
         axios({
@@ -39,6 +43,15 @@ const Main = (props)=> {
 
     }, [])
 
+    useEffect( ()=>{
+        if (svgObjectIdClick){
+            console.log('object box ID : ' , svgObjectIdClick)
+            setContentIsShow(true)
+        }
+
+
+    },[svgObjectIdClick])
+
     const svgShowRender = () =>{
         if (!svgIsLoaded) {
             return (
@@ -50,7 +63,7 @@ const Main = (props)=> {
         }
     }
 
-    const SvgAppShowRender = ()=>{
+    const svgAppShowRender = ()=>{
         if (isMap3dDataFetched & map3dDataState != null) {
             return(
 
@@ -59,6 +72,7 @@ const Main = (props)=> {
                     setSvgIsLoaded={setSvgIsLoaded}
                     tabs={map3dDataState.table.tabs}
                     svgIsLoaded={svgIsLoaded}
+                    setSvgObjectIdClick={setSvgObjectIdClick}
                 />
             )
         }
@@ -68,12 +82,29 @@ const Main = (props)=> {
         }
     }
 
+    const contentAppShowRender = ()=>{
+        if (contentIsShow){
+            return(
+
+                <ContentApp
+                    svgObjectIdClick={svgObjectIdClick}
+                    tabs={map3dDataState.table.tabs}
+                />
+            )
+        }
+        else {
+            return null
+        }
+
+    }
+
     return(
         <div>
             <h2>Welcome To Main Page</h2>
             {svgShowRender()}
             <svg id='svg_id'></svg>
-            {SvgAppShowRender()}
+            {svgAppShowRender()}
+            {contentAppShowRender()}
         </div>
 
     )
