@@ -7,9 +7,9 @@ import {SvgContainer} from "./SvgContainer";
 
 const SvgApp = (props)=>{
 
-    const svg_file = '#svg_file'
+    const svg_id = '#svg_id'
 
-    const svg = Snap(svg_file)
+    const svg = Snap(svg_id)
 
     svg.attr({
 
