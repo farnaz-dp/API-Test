@@ -36,6 +36,7 @@ const SvgApp = (props)=>{
                 <SvgContainer
                     tabs={props.tabs}
                     svgSnap={svg}
+                    setSvgObjectIdClick={props.setSvgObjectIdClick}
                 />
             )
         }
