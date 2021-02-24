@@ -36,18 +36,19 @@ const SvgComponent = (props) => {
         propsState.svgSnap.select("#" + propsState.object_id)
             .hover(
                 ()=>{
-                console.log( propsState.object_id,' is hovered ')
+                // console.log( propsState.object_id,' is hovered ')
                     setIsHovered(true)
                 },
                 ()=>{
-                    console.log( propsState.object_id,' is not hovered ')
+                    // console.log( propsState.object_id,' is not hovered ')
                     setIsHovered(false)
                 }
                 )
             .click(
                 (event)=>{
                     event.preventDefault()
-                    console.log( propsState.object_id,' is Clicked')
+                    // console.log( propsState.object_id,' is Clicked')
+                    props.setSvgObjectIdClick(propsState.object_id)
                 }
                 )
 
@@ -71,7 +72,7 @@ const SvgComponent = (props) => {
 
     return(
         <div>
-            <h2>SVG Component</h2>
+
         </div>
     )
 }
