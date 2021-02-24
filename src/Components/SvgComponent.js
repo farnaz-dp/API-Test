@@ -51,7 +51,6 @@ const SvgComponent = (props) => {
                 }
                 )
 
-
     },[props])
 
     // set color of object in svg map
