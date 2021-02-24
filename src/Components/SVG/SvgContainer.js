@@ -16,6 +16,7 @@ const SvgContainer = (props) => {
                     sensors={tab.sensors}
                     svgSnap={props.svgSnap}
                     key={index}
+                    setSvgObjectIdClick={props.setSvgObjectIdClick}
                 />
             )
 
@@ -26,7 +27,7 @@ const SvgContainer = (props) => {
 
     return(
         <div>
-            <h1>SVG Container</h1>
+
             {svgComponentsRender()}
         </div>
     )
