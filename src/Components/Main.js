@@ -72,7 +72,7 @@ const Main = (props)=> {
         <div>
             <h2>Welcome To Main Page</h2>
             {svgShowRender()}
-            <svg id='svg_file'></svg>
+            <svg id='svg_id'></svg>
             {SvgAppShowRender()}
         </div>
 
