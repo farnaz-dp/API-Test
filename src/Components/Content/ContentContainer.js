@@ -18,7 +18,7 @@ const ContentContainer = (props)=>{
 
             return (
 
-                        <Tab>
+                        <Tab key={index}>
                             {tab.tab_name}
                         </Tab>
 
@@ -40,7 +40,7 @@ const ContentContainer = (props)=>{
 
             return (
 
-                <TabPanel>
+                <TabPanel key={index}>
                     {/*{tab.tab_name} <br/>*/}
                     {/*{tab.clickable_object}<br/>*/}
                     {/*{tab.object_id}<br/>*/}
@@ -48,6 +48,7 @@ const ContentContainer = (props)=>{
                     <ContentComponent
                         sensors={tab.sensors}
                         table_name={tab.table_name}
+                        key={index}
                     />
                 </TabPanel>
 
