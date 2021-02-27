@@ -18,7 +18,7 @@ const SvgApp = (props)=>{
 
 
     useEffect (()=>{
-
+//Loading SVG from Api URL
         if(props.svgUrl){
             const tux = Snap.load(`http://192.168.100.56/${props.svgUrl}`, (data)=>{
                 svg.append(data)
