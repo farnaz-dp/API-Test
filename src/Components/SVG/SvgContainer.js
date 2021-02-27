@@ -5,7 +5,7 @@ import {SvgComponent} from "./SvgComponent";
 
 const SvgContainer = (props) => {
 
-
+//Extracts required fields from tabs array
     const svgComponentsRender = ()=> {
         const componentList = props.tabs.map((tab, index)=>{
             return(
