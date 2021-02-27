@@ -56,21 +56,22 @@ const Login = (props) => {
 
     }
 
+
     return(
-        <div>
-            <h2>Login Form</h2>
-            <form>
-                <label>
-                    {`UserName : `}
+        <div style={{width:"300px" , height:"200px" , border:"2px solid black",borderRadius:"5%" , backgroundColor:"#e3f0f5" , margin:" -100px 0 0 -150px",position:"absolute" , top:"50%" , left:"50%"}}>
+            <h2 style={{marginLeft:"5px"}}>Login Form</h2>
+            <form >
+                <label  style={{color: "#070b4c" , fontSize:"3 rem" , fontFamily:"Arial" ,fontWeight:"bold" , marginLeft:"8px"}}>
+                    {`Username : `}
                 </label>
-                <input type={"text"} name={"username"} value={usernameState} onChange={handleInputChange}/>
+                <input type={"text"} name={"username"} value={usernameState} onChange={handleInputChange} />
                 <br/>
-                <label>
+                <label  style={{color: "#070b4c" , fontSize:"3 rem" , fontFamily:"Arial" , fontWeight:"bold" , marginLeft:"8px"}}>
                     {`Password : `}
                 </label>
-                <input type={"password"} name={"password"} value={passwordState} onChange={handleInputChange}/>
+                <input type={"password"} name={"password"} value={passwordState} onChange={handleInputChange} style={{marginLeft:3, marginTop:6} }/>
                 <br/>
-                <input type={"submit"} onClick={handleInputChange}/>
+                <input type={"submit"} onClick={handleInputChange} style={{marginTop:20, marginLeft:100 ,width:"6rem" , height:"2rem" , backgroundColor:"#a1ceec" , fontWeight:"bold"}}/>
 
             </form>
 
