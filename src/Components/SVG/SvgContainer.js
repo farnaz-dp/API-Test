@@ -17,6 +17,8 @@ const SvgContainer = (props) => {
                     svgSnap={props.svgSnap}
                     key={index}
                     setSvgObjectIdClick={props.setSvgObjectIdClick}
+                    setDrawerVisible={props.setDrawerVisible}
+                    svgObjectIdClick={props.svgObjectIdClick}
                 />
             )
 
