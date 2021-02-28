@@ -21,6 +21,28 @@ const columns = [
     },
 ];
 
+createTheme('solarized', {
+    text: {
+        primary: '#000',
+        secondary: '#000',
+    },
+    background: {
+        default: '#E1F5FE',
+    },
+    context: {
+        background: '#cb4b16',
+        text: '#FFFFFF',
+    },
+    divider: {
+        default: '#073642',
+    },
+    action: {
+        button: 'rgba(0,0,0,.54)',
+        hover: 'rgba(0,0,0,.08)',
+        disabled: 'rgba(0,0,0,.12)',
+    },
+});
+
 const ContentComponent = (props)=>{
 
     const {sensors , table_name}= props
@@ -71,6 +93,7 @@ const ContentComponent = (props)=>{
                 title={table_name}
                 columns={columns}
                 data={sensorRender()}
+                theme={"solarized"}
             />
         </div>
     )
