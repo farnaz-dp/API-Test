@@ -5,6 +5,8 @@ import {SvgApp} from "./SVG/SvgApp";
 import {MoonLoader} from "react-spinners";
 import { css } from "@emotion/react";
 import {ContentApp} from "./Content/ContentApp";
+import {DrawerTable} from "./DrawerTable";
+import {TabPanel} from "react-tabs";
 
 
 const override = css`
@@ -20,7 +22,7 @@ const Main = (props)=> {
     const [svgIsLoaded , setSvgIsLoaded] = useState(false)
     const [svgObjectIdClick , setSvgObjectIdClick] = useState(null)
     const [contentIsShow , setContentIsShow] = useState(false)
-
+    const [drawerVisible, setDrawerVisible] = useState(false);
 
     useEffect( ()=>{
         axios({
@@ -73,6 +75,8 @@ const Main = (props)=> {
                     tabs={map3dDataState.table.tabs}
                     svgIsLoaded={svgIsLoaded}
                     setSvgObjectIdClick={setSvgObjectIdClick}
+                    setDrawerVisible={setDrawerVisible}
+                    svgObjectIdClick={svgObjectIdClick}
                 />
             )
         }
@@ -86,13 +90,20 @@ const Main = (props)=> {
         if (contentIsShow){
             return(
 
-                <ContentApp
+                // <ContentApp
+                //     svgObjectIdClick={svgObjectIdClick}
+                //     tabs={map3dDataState.table.tabs}
+                // />
+
+                <DrawerTable
                     svgObjectIdClick={svgObjectIdClick}
-                    tabs={map3dDataState.table.tabs}
+                    map3dDataState={map3dDataState}
+                    setDrawerVisible={setDrawerVisible}
+                    drawerVisible={drawerVisible}
                 />
             )
         }
-        else {
+    else {
             return null
         }
 
@@ -100,14 +111,14 @@ const Main = (props)=> {
 
     return(
         <div>
-            <h2>Welcome To Main Page</h2>
-            {svgShowRender()}
-            <svg id='svg_id'></svg>
-            {svgAppShowRender()}
-            {contentAppShowRender()}
-        </div>
+        <h2>Welcome To Main Page</h2>
+        {svgShowRender()}
+        <svg id='svg_id'></svg>
+        {svgAppShowRender()}
+        {contentAppShowRender()}
+    </div>
 
     )
-}
+    }
 
-export {Main}
+    export {Main}
