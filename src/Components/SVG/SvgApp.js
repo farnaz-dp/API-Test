@@ -30,6 +30,7 @@ const SvgApp = (props)=>{
 
     },[])
 
+    //Map in tabs
     const svgContainerRender = () => {
         if (props.svgIsLoaded){
             return (
@@ -37,6 +38,8 @@ const SvgApp = (props)=>{
                     tabs={props.tabs}
                     svgSnap={svg}
                     setSvgObjectIdClick={props.setSvgObjectIdClick}
+                    setDrawerVisible={props.setDrawerVisible}
+                    svgObjectIdClick={props.svgObjectIdClick}
                 />
             )
         }
