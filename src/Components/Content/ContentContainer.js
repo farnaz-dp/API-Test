@@ -4,6 +4,7 @@ import {useState , useEffect} from 'react'
 import {ContentComponent} from "./ContentComponent";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import {DrawerTable} from "../DrawerTable";
 
 
 const ContentContainer = (props)=>{
@@ -41,15 +42,13 @@ const ContentContainer = (props)=>{
             return (
 
                 <TabPanel key={index}>
-                    {/*{tab.tab_name} <br/>*/}
-                    {/*{tab.clickable_object}<br/>*/}
-                    {/*{tab.object_id}<br/>*/}
-                    {/*{tab.table_name}*/}
+
                     <ContentComponent
                         sensors={tab.sensors}
                         table_name={tab.table_name}
                         key={index}
                     />
+
                 </TabPanel>
 
             )
