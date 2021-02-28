@@ -17,7 +17,10 @@ const SvgComponent = (props) => {
     const  [enableTimerToBlink , setEnableTimerToBlink] = useState(null)
 
     // set timer reference for blink
-    const TimerToBlink = useRef (null)
+    const timerToBlink = useRef (null)
+
+   // set timer reference for Drawer show
+    const timerToShowDrawer = useRef (null)
 
 
 
@@ -51,7 +54,10 @@ const SvgComponent = (props) => {
     //     opacity = 0.00392157
     // }
 
+    const drawerShowHandler = ()=>{
+        props.setDrawerVisible(true)
 
+    }
 
 
     useEffect(()=>{
@@ -72,6 +78,18 @@ const SvgComponent = (props) => {
                     event.preventDefault()
                     // console.log( propsState.object_id,' is Clicked')
                     props.setSvgObjectIdClick(propsState.object_id)
+
+                    if (props.svgObjectIdClick != propsState.object_id){
+
+                        props.setDrawerVisible(false)
+                        timerToShowDrawer.current= setTimeout(()=>{
+                            drawerShowHandler()
+                        },400)
+                    }
+                    else {
+                        props.setDrawerVisible(true)
+                    }
+
                 }
             )
 
@@ -139,13 +157,13 @@ const SvgComponent = (props) => {
     //timer of blink flag
     useEffect(()=>{
         if(enableTimerToBlink){
-            TimerToBlink.current= setTimeout(()=>{
+            timerToBlink.current= setTimeout(()=>{
                 setBlinkFlag(!blinkFlag)
             },600)
 
         }
         return ()=>{
-            clearInterval(TimerToBlink.current)
+            clearInterval(timerToBlink.current)
         }
     },[enableTimerToBlink,blinkFlag])
 
