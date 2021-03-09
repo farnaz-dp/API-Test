@@ -24,8 +24,6 @@ const SvgComponent = (props) => {
 
 
 
-
-
     // change color and opacity for hover and alarm and warn
 
     let color , opacity ;
@@ -135,7 +133,7 @@ const SvgComponent = (props) => {
     }, [props.sensors])
 
 
-    // check blink (alarm and warn) and set timer to blink
+    // check blink (alarm and warn) and set timer to blinkya
     useEffect(()=>{
 
         if (isSensorsBlink){
@@ -189,7 +187,6 @@ const SvgComponent = (props) => {
             }
         }
     },[blinkFlag, isSensorsValue])
-
 
 
 
