@@ -37,6 +37,7 @@ const visibleStyle = {
 const hiddenStyle = {
     ...commonStyle,
     left: '-300px'
+
 };
 
 const liStyle = {
