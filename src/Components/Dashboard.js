@@ -1,24 +1,27 @@
-import React from 'react'
+import React , {useContext} from 'react'
 import {useState,useEffect} from "react";
 import {Login} from "./Login";
 import {Main} from "./Main";
-// import {Login} from "./Login";
-// import {Main} from "./Main";
+import {Context} from "../Contexts/IVMSContext";
 
 const Dashboard = (props)=>{
 
-    const [apiAuthTokenState , setApiAuthTokenState] =useState(null)
+    // const [apiAuthTokenState , setApiAuthTokenState] =useState(null)
+
+    const {state , dispatch} = useContext(Context)
 
     const pageRender = () => {
-        if (apiAuthTokenState === null){
+        if (state.ivmsLoginApi.data === null){
             return (
-                <Login setApiAuthTokenState={setApiAuthTokenState}/>
+                // <Login setApiAuthTokenState={setApiAuthTokenState}/>
+                <Login />
             )
         }
         else
         {
             return (
-                <Main apiAuthTokenState={apiAuthTokenState} />
+                // <Main apiAuthTokenState={apiAuthTokenState} />
+                <Main  />
             )
         }
     }
