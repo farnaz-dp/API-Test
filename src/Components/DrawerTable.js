@@ -1,8 +1,10 @@
 
-import React from 'react'
+import React, {useContext} from 'react'
 import {useState, useEffect} from 'react'
 import {ContentComponent} from "./Content/ContentComponent";
 import {ContentApp} from "./Content/ContentApp";
+import {Context} from "../Contexts/IVMSContext";
+import {DRAWER_NOT_SHOW, DRAWER_SHOW} from "../ActionType/Action";
 
 
 const buttonStyle = {
@@ -55,35 +57,42 @@ const liStyle = {
 
 const DrawerTable = (props) => {
 
-    const {map3dDataState, svgObjectIdClick , drawerVisible , setDrawerVisible} = props
+    const {state , dispatch} = useContext(Context)
 
-    // const [visible, setVisible] = useState(false);
+    // const {map3dDataState, svgObjectIdClick , drawerVisible , setDrawerVisible} = props
+
     return (
         <div style={{ height: "200px" }}>
-            {/*<button style={buttonStyle} onClick={() => setVisible(true)}>*/}
-            {/*    Show*/}
-            {/*</button>*/}
-            <div style={drawerVisible ? visibleStyle : hiddenStyle}>
-                <button style={buttonStyle} onClick={() => setDrawerVisible(false)}>
+
+            {/*<div style={drawerVisible ? visibleStyle : hiddenStyle}>*/}
+            <div style={state.drawer.drawerShow ? visibleStyle : hiddenStyle}>
+                {/*<button style={buttonStyle} onClick={() => setDrawerVisible(false)}>*/}
+                <button
+                    style={buttonStyle}
+                    onClick={
+                        () => {
+                            dispatch(
+                                {
+                                    type : DRAWER_NOT_SHOW
+                                }
+                            )
+                        }
+
+                    }
+                >
+
                     Close
                 </button>
                 <div>
-                    {/*<ul>*/}
-                    {/*    /!*<li style={liStyle}>Fruits 🍏🍌🍒</li>*!/*/}
-                    {/*    /!*<li style={liStyle}>Vegetables 🥕🥦🍅</li>*!/*/}
-                    {/*    /!*<li style={liStyle}>Fast Food 🍕🍟🍔</li>*!/*/}
-                    {/*        <ContentComponent*/}
-                    {/*        sensors={props.sensors}*/}
-                    {/*        table_name={props.table_name}*/}
-                    {/*        key={props.key}/>*/}
-
-
-                    {/*</ul>*/}
                     <br/>
-                    <ContentApp
-                        svgObjectIdClick={svgObjectIdClick}
-                        tabs={map3dDataState.table.tabs}
-                    />
+                    {/*<ContentApp*/}
+                    {/*    svgObjectIdClick={svgObjectIdClick}*/}
+                    {/*    tabs={map3dDataState.table.tabs}*/}
+                    {/*/>*/}
+
+                    <ContentApp />
+
+
                 </div>
             </div>
         </div>
