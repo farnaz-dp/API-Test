@@ -9,10 +9,11 @@ import {DrawerTable} from "../DrawerTable";
 
 const ContentContainer = (props)=>{
 
-    const {svgObjectIdClick , tabs} = props
+    // const {svgObjectIdClick , tabs} = props
+    const { tabs} = props
 
-    console.log('ContentContainer , object box id :' , svgObjectIdClick)
-    console.log('ContentContainer , tabs :' , tabs)
+    // console.log('ContentContainer , object box id :' , svgObjectIdClick)
+    // console.log('ContentContainer , tabs :' , tabs)
 
     const tabNameRender = ()=>{
         const contentList = tabs.map((tab , index)=>{
