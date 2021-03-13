@@ -1,7 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {useState , useEffect, useRef} from "react"
+import {Context} from "../../Contexts/IVMSContext";
+import {DRAWER_NOT_SHOW, DRAWER_SHOW, SVG_CLICK} from "../../ActionType/Action";
 
 const SvgComponent = (props) => {
+
+    const {state , dispatch} = useContext(Context)
 
     const [propsState , setPropsState] = useState(props)
     const [isHovered , setIsHovered] = useState(false)
@@ -53,43 +57,64 @@ const SvgComponent = (props) => {
     // }
 
     const drawerShowHandler = ()=>{
-        props.setDrawerVisible(true)
+        // props.setDrawerVisible(true)
+
+        dispatch({
+            type : DRAWER_SHOW
+        })
 
     }
 
 
     useEffect(()=>{
         setPropsState(props)
-        propsState.svgSnap.select("#" + propsState.object_id)
-            .hover(
-                ()=>{
-                    // console.log( propsState.object_id,' is hovered ')
-                    setIsHovered(true)
-                },
-                ()=>{
-                    // console.log( propsState.object_id,' is not hovered ')
-                    setIsHovered(false)
-                }
-            )
-            .click(
-                (event)=>{
-                    event.preventDefault()
-                    // console.log( propsState.object_id,' is Clicked')
-                    props.setSvgObjectIdClick(propsState.object_id)
-
-                    if (props.svgObjectIdClick != propsState.object_id){
-
-                        props.setDrawerVisible(false)
-                        timerToShowDrawer.current= setTimeout(()=>{
-                            drawerShowHandler()
-                        },400)
+        if (propsState.object_id != null){
+            console.log('SvgComponent , object id :' ,  propsState.object_id)
+            propsState.svgSnap.select("#" + propsState.object_id)
+                .hover(
+                    ()=>{
+                        // console.log( propsState.object_id,' is hovered ')
+                        setIsHovered(true)
+                    },
+                    ()=>{
+                        // console.log( propsState.object_id,' is not hovered ')
+                        setIsHovered(false)
                     }
-                    else {
-                        props.setDrawerVisible(true)
-                    }
+                )
+                .click(
+                    (event)=>{
+                        event.preventDefault()
+                        // console.log( propsState.object_id,' is Clicked')
+                        // props.setSvgObjectIdClick(propsState.object_id)
+                        dispatch({
+                            type: SVG_CLICK,
+                            objectId : propsState.object_id
+                        })
 
-                }
-            )
+                        // if (props.svgObjectIdClick != propsState.object_id){
+                        if (state.svg.svgObjectIdClick != propsState.object_id){
+
+                            // props.setDrawerVisible(false)
+
+                            dispatch({
+                                type: DRAWER_NOT_SHOW
+                            })
+
+                            timerToShowDrawer.current= setTimeout(()=>{
+                                drawerShowHandler()
+                            },400)
+                        }
+                        else {
+                            // props.setDrawerVisible(true)
+                            dispatch({
+                                type: DRAWER_SHOW
+                            })
+                        }
+
+                    }
+                )
+        }
+
 
     },[props])
 
