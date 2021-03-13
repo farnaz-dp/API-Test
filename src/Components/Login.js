@@ -1,14 +1,22 @@
 
-import React from "react";
+import React,{useContext} from "react";
 import {useState,useEffect} from "react";
 import axios from "axios";
+import {Context} from '../Contexts/IVMSContext'
+import {
+    LOGIN_API_REQUEST,
+    LOGIN_API_SUCCESS,
+    LOGIN_API_ERROR
+} from "../ActionType/Action";
 
 
 const Login = (props) => {
 
     const [usernameState , setUsernameState] =useState('')
     const [passwordState , setPasswordState] =useState('')
-    const [apiFetchState , setApiFetchState] =useState(false)
+    // const [apiFetchState , setApiFetchState] =useState(false)
+
+    const {state , dispatch} = useContext(Context)
 
 
     const handleInputChange = (event) => {
@@ -17,6 +25,10 @@ const Login = (props) => {
         if (event.target.type ==="submit" ){
             event.preventDefault()
             if (usernameState != '' & passwordState != ''){
+
+                dispatch({
+                    type: LOGIN_API_REQUEST
+                })
                 axios({
                     method: 'post',
                     url: 'http://192.168.100.56/api-token-auth',
@@ -30,11 +42,19 @@ const Login = (props) => {
                         // console.log(`Response : ${response}`)
                         if (response.status === 200){
                             console.log('Login,Response : ' , response.data)
-                            setApiFetchState(true)
-                            props.setApiAuthTokenState(response.data)
+                            dispatch({
+                                type: LOGIN_API_SUCCESS,
+                                loginData : response.data
+                            })
+                            // setApiFetchState(true)
+                            // props.setApiAuthTokenState(response.data)
                         }
                     })
                     .catch((error)=>{
+                        dispatch({
+                            type: LOGIN_API_ERROR,
+                            error : error
+                        })
                         console.log('Error : ',error)
                     })
             }
