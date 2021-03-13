@@ -1,11 +1,21 @@
 
-import React from "react";
+import React, {useReducer} from "react";
 import {Dashboard} from "./Components/Dashboard";
 
+import {Context} from './Contexts/IVMSContext'
+import { IVMSReducer,initState} from './Reducers/Reducer'
+
 function App() {
+
+
+    const [state ,dispatch] = useReducer(IVMSReducer , initState )
+
   return (
       <div >
-        <Dashboard />
+          <Context.Provider value={{state , dispatch}}>
+              <Dashboard />
+          </Context.Provider>
+
       </div>
   );
 }
