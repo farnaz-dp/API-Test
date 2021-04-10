@@ -2,21 +2,24 @@
 import React , {useContext} from 'react'
 import {useState , useEffect } from 'react'
 import {ContentContainer} from "./ContentContainer";
-import {Context} from '../../Contexts/IVMSContext'
+import {useSelector} from "react-redux";
+
 
 
 const ContentApp = (props) =>{
 
-    const {state , dispatch} = useContext(Context)
+    const mapDataTable = useSelector(state => state.mapDataApi.data.table.tabs)
+
+    const svgClick = useSelector(state => state.svg.svgObjectIdClick)
 
     // const {svgObjectIdClick, tabs} = props
 
     const tabFilter = () =>{
 
         // const tabList = tabs.filter((tab)=>{
-        const tabList = state.ivmsMapDataApi.data.table.tabs.filter((tab)=>{
+        const tabList = mapDataTable.filter((tab)=>{
             // if (tab.object_id === svgObjectIdClick)
-            if (tab.object_id === state.svg.svgObjectIdClick)
+            if (tab.object_id === svgClick)
             {
                 return tab
             }
