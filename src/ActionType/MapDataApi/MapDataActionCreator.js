@@ -21,27 +21,26 @@ export const MapDataApiError = (error) => {
     }
 }
 
-//Async action creator
+//Async action creator using try catch
 export const fetchMapData = (token) => {
-    return dispatch => {
 
-        dispatch(MapDataApiRequest())
-        axios(
-            {
-             method : 'get',
-                url :'http://192.168.100.56/api/v1/map3d/overall',
+    return async dispatch => {
+        try {
+            dispatch(MapDataApiRequest())
+            const result = await axios({
+                url: 'http://192.168.100.56/api/v1/map3d/overall',
+
+                method: "GET",
                 headers : {
                     Authorization : `token ${token}`,
                 }
-            }
-
-        )
-            .then((response) =>{
-                dispatch(MapDataApiSuccess(response.data))
             })
+            dispatch(MapDataApiSuccess(result.data))
 
-            .catch((error) =>{
-                dispatch(MapDataApiError(error))
-            })
+        }
+        catch (error){
+            dispatch(MapDataApiError(error))
+        }
     }
+
 }
