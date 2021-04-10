@@ -3,8 +3,9 @@ import React, {useContext} from 'react'
 import {useState, useEffect} from 'react'
 import {ContentComponent} from "./Content/ContentComponent";
 import {ContentApp} from "./Content/ContentApp";
-import {Context} from "../Contexts/IVMSContext";
-import {DRAWER_NOT_SHOW, DRAWER_SHOW} from "../ActionType/Action";
+import {useDispatch, useSelector} from "react-redux";
+import {DrawerNotShow} from '../ActionType'
+// import {DRAWER_NOT_SHOW, DRAWER_SHOW} from "../ActionType/Action";
 
 
 const buttonStyle = {
@@ -57,7 +58,9 @@ const liStyle = {
 
 const DrawerTable = (props) => {
 
-    const {state , dispatch} = useContext(Context)
+   const drawerShow = useSelector(state => state.drawer.drawerShow)
+
+    const dispatch = useDispatch()
 
     // const {map3dDataState, svgObjectIdClick , drawerVisible , setDrawerVisible} = props
 
@@ -65,17 +68,20 @@ const DrawerTable = (props) => {
         <div style={{ height: "200px" }}>
 
             {/*<div style={drawerVisible ? visibleStyle : hiddenStyle}>*/}
-            <div style={state.drawer.drawerShow ? visibleStyle : hiddenStyle}>
+            <div style={drawerShow ? visibleStyle : hiddenStyle}>
                 {/*<button style={buttonStyle} onClick={() => setDrawerVisible(false)}>*/}
                 <button
                     style={buttonStyle}
                     onClick={
                         () => {
-                            dispatch(
+
+                            dispatch(DrawerNotShow())
+
+                           /* dispatch(
                                 {
                                     type : DRAWER_NOT_SHOW
                                 }
-                            )
+                            )*/
                         }
 
                     }
