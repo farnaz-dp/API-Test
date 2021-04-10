@@ -1,16 +1,17 @@
 
-import React, {useState, useEffect , useContext} from 'react'
+import React, {useState, useEffect} from 'react'
 import {SvgComponent} from "./SvgComponent";
-import {Context} from "../../Contexts/IVMSContext";
+import {useSelector} from "react-redux";
+
 
 const SvgContainer = (props) => {
 
-    const {state , dispatch} = useContext(Context)
+    const mapDataTable = useSelector(state => state.mapDataApi.data.table.tabs)
 
 //Extracts required fields from tabs array
     const svgComponentsRender = ()=> {
         // const componentList = props.tabs.map((tab, index)=>{
-        const componentList = state.ivmsMapDataApi.data.table.tabs.map((tab, index)=>{
+        const componentList = mapDataTable.map((tab, index)=>{
             return(
                 // <SvgComponent
                 //     tab_name={tab.tab_name}
