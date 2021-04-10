@@ -4,13 +4,31 @@ import {useState , useEffect , useRef} from 'react'
 import * as Snap from 'snapsvg-cjs';
 import {SvgContainer} from "./SvgContainer";
 import {Context} from '../../Contexts/IVMSContext'
-import {SVG_LOADED} from "../../ActionType/Action";
+import {SvgLoaded} from "../../ActionType";
+import {useDispatch, useSelector} from "react-redux";
 
 
 
 const SvgApp = (props)=>{
 
-    const {state , dispatch}= useContext(Context)
+    const loading = useSelector(state => state.mapDataApi.loading)
+
+    const dataFetched = useSelector(state => state.mapDataApi.dataFetched)
+
+    const error = useSelector(state => state.mapDataApi.error)
+
+    const svgLoaded = useSelector(state => state.svg.svgLoading)
+
+    const svgUrl = useSelector(state => {
+        if (!loading && dataFetched && !error){
+            return state.mapDataApi.data.url
+        }
+        return null
+    })
+
+    const dispatch = useDispatch()
+
+    // const {state , dispatch}= useContext(Context)
     const svg_id = '#svg_id'
 
     const svg = Snap(svg_id)
@@ -24,14 +42,18 @@ const SvgApp = (props)=>{
     useEffect (()=>{
 //Loading SVG from Api URL
 //         if(props.svgUrl){
-        if(state.ivmsMapDataApi.data.url){
-            console.log('SvgApp , url :' , `http://192.168.100.56/${state.ivmsMapDataApi.data.url}`)
-            const tux = Snap.load(`http://192.168.100.56/${state.ivmsMapDataApi.data.url}`, (data)=>{
+//         if(state.ivmsMapDataApi.data.url){
+
+        if(svgUrl){
+            console.log('SvgApp , url :' , `http://192.168.100.56/${svgUrl}`)
+            const tux = Snap.load(`http://192.168.100.56/${svgUrl}`, (data)=>{
                 svg.append(data)
 
-                dispatch({
+                dispatch(SvgLoaded())
+
+             /*   dispatch({
                     type : SVG_LOADED
-                })
+                })*/
                 // props.setSvgIsLoaded(true)
 
             } );
@@ -42,7 +64,7 @@ const SvgApp = (props)=>{
     //Map in tabs
     const svgContainerRender = () => {
         // if (props.svgIsLoaded){
-        if (state.svg.svgLoading){
+        if (svgLoaded){
             return (
                 // <SvgContainer
                 //     tabs={props.tabs}
