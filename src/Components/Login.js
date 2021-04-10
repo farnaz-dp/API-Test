@@ -1,13 +1,9 @@
 
-import React,{useContext} from "react";
+import React from "react";
+import {useDispatch} from "react-redux";
 import {useState,useEffect} from "react";
 import axios from "axios";
-import {Context} from '../Contexts/IVMSContext'
-import {
-    LOGIN_API_REQUEST,
-    LOGIN_API_SUCCESS,
-    LOGIN_API_ERROR
-} from "../ActionType/Action";
+import {LoginApiRequest,LoginApiError,fetchToken} from '../ActionType'
 
 
 const Login = (props) => {
@@ -16,7 +12,7 @@ const Login = (props) => {
     const [passwordState , setPasswordState] =useState('')
     // const [apiFetchState , setApiFetchState] =useState(false)
 
-    const {state , dispatch} = useContext(Context)
+    const dispatch = useDispatch()
 
 
     const handleInputChange = (event) => {
@@ -26,10 +22,13 @@ const Login = (props) => {
             event.preventDefault()
             if (usernameState != '' & passwordState != ''){
 
-                dispatch({
+                /*dispatch({
                     type: LOGIN_API_REQUEST
-                })
-                axios({
+                })*/
+
+                dispatch(fetchToken(usernameState, passwordState))
+
+                /*axios({
                     method: 'post',
                     url: 'http://192.168.100.56/api-token-auth',
                     data: {
@@ -56,7 +55,8 @@ const Login = (props) => {
                             error : error
                         })
                         console.log('Error : ',error)
-                    })
+                    })*/
+
             }
             console.log("Event type is Submit Button")
 
