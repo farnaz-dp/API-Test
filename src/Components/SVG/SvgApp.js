@@ -3,7 +3,6 @@ import React, {useContext} from 'react'
 import {useState , useEffect , useRef} from 'react'
 import * as Snap from 'snapsvg-cjs';
 import {SvgContainer} from "./SvgContainer";
-import {Context} from '../../Contexts/IVMSContext'
 import {SvgLoaded} from "../../ActionType";
 import {useDispatch, useSelector} from "react-redux";
 
