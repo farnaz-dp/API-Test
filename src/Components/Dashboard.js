@@ -1,17 +1,17 @@
-import React , {useContext} from 'react'
-import {useState,useEffect} from "react";
+import React  from 'react'
+import {useSelector,useDispatch} from 'react-redux'
 import {Login} from "./Login";
 import {Main} from "./Main";
-import {Context} from "../Contexts/IVMSContext";
+
 
 const Dashboard = (props)=>{
 
     // const [apiAuthTokenState , setApiAuthTokenState] =useState(null)
 
-    const {state , dispatch} = useContext(Context)
+    const loginApi = useSelector(state => state.loginApi.token)
 
     const pageRender = () => {
-        if (state.ivmsLoginApi.data === null){
+        if (loginApi === null){
             return (
                 // <Login setApiAuthTokenState={setApiAuthTokenState}/>
                 <Login />
