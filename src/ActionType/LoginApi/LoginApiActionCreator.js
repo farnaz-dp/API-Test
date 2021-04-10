@@ -22,29 +22,32 @@ export const LoginApiError = (error) => {
     }
 }
 
-//Async action creator
+//Async action creator using try catch
 export const fetchToken = (user , pass) => {
-    return dispatch => {
-        dispatch(LoginApiRequest())
-        axios(
-            {
-                method : 'post',
-                url : 'http://192.168.100.56/api-token-auth',
-                data :{
-                    username : user,
-                    password : pass
-                }
-            }
-        )
-            .then((response) =>{
-                if (response.status === 200) {
-                    dispatch(LoginApiSuccess(response.data.token))
-                }
-            })
-            .catch((error) =>{
 
-                dispatch(LoginApiError(error))
+    return async dispatch =>{
+        try {
+            dispatch(LoginApiRequest())
+            const result = await axios({
+                url: 'http://192.168.100.56/api-token-auth',
+
+                method: "POST",
+                data: {
+                    username: user,
+
+                    password: pass
+
+                }
             })
+
+
+            dispatch( LoginApiSuccess(result.data.token) )
+
+        }
+        catch (error){
+            dispatch( LoginApiError(error) )
+        }
     }
+
 }
 
