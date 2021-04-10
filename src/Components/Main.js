@@ -1,5 +1,6 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import {useState, useEffect} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
 import axios from "axios";
 import {SvgApp} from "./SVG/SvgApp";
 import {MoonLoader} from "react-spinners";
@@ -7,13 +8,7 @@ import { css } from "@emotion/react";
 import {ContentApp} from "./Content/ContentApp";
 import {DrawerTable} from "./DrawerTable";
 import {TabPanel} from "react-tabs";
-import {Context} from "../Contexts/IVMSContext";
-import {
-    MAPDATA_API_REQUEST,
-    MAPDATA_API_SUCCESS,
-    MAPDATA_API_ERROR,
-    CONTENT_SHOW
-} from '../ActionType/Action'
+import {fetchMapData ,ContentShow} from '../ActionType'
 
 
 const override = css`
@@ -24,70 +19,88 @@ const override = css`
 
 const Main = (props)=> {
 
-    const [map3dDataState , setMap3dDataState] = useState(null)
-    const [isMap3dDataFetched , setIsMap3dDataFetched] = useState(false)
-    const [svgIsLoaded , setSvgIsLoaded] = useState(false)
-    const [svgObjectIdClick , setSvgObjectIdClick] = useState(null)
-    const [contentIsShow , setContentIsShow] = useState(false)
+    // const [map3dDataState , setMap3dDataState] = useState(null)
+    // const [isMap3dDataFetched , setIsMap3dDataFetched] = useState(false)
+    // const [svgIsLoaded , setSvgIsLoaded] = useState(false)
+    // const [svgObjectIdClick , setSvgObjectIdClick] = useState(null)
+    // const [contentIsShow , setContentIsShow] = useState(false)
     const [drawerVisible, setDrawerVisible] = useState(false);
 
-    const {state , dispatch}= useContext(Context)
+    const token = useSelector(state => state.loginApi.token)
+
+    const loading = useSelector(state => state.mapDataApi.loading)
+
+    const dataFetched = useSelector(state => state.mapDataApi.dataFetched)
+
+    const error = useSelector(state => state.mapDataApi.error)
+
+    const svgLoaded = useSelector(state => state.svg.svgLoading)
+
+    const svgClick = useSelector(state => state.svg.svgObjectIdClick)
+
+    const contentShow = useSelector(state => state.content.contentShow)
+
+    const dispatch = useDispatch()
+
 
     useEffect( ()=>{
 
-        dispatch({
-            type: MAPDATA_API_REQUEST
-        })
+        dispatch(fetchMapData(token))
+
+         // dispatch({
+         //     type: MAPDATA_API_REQUEST
+         // })
 
 
-        axios({
-            method : 'get',
-            url : 'http://192.168.100.56/api/v1/map3d/overall',
-            headers : {
-                // Authorization : `token ${props.apiAuthTokenState.token}`,
-                Authorization : `token ${state.ivmsLoginApi.data.token}`,
-            }
-
-        })
-            .then((response)=>{
-                dispatch({
-                    type: MAPDATA_API_SUCCESS,
-                    mapdata : response.data
-                })
-
-                // setIsMap3dDataFetched(true)
-                // setMap3dDataState(response.data)
-                // console.log('Main, Response : ',response.data)
-            })
-            .catch((error)=>{
-                dispatch({
-                    type : MAPDATA_API_ERROR,
-                    error : error
-
-                })
-                console.log(error)
-            })
+        // axios({
+        //     method : 'get',
+        //     url : 'http://192.168.100.56/api/v1/map3d/overall',
+        //     headers : {
+        //         // Authorization : `token ${props.apiAuthTokenState.token}`,
+        //         Authorization : `token ${state.ivmsLoginApi.data.token}`,
+        //     }
+        //
+        // })
+        //     .then((response)=>{
+        //         dispatch({
+        //             type: MAPDATA_API_SUCCESS,
+        //             mapdata : response.data
+        //         })
+        //
+        //         setIsMap3dDataFetched(true)
+        //         setMap3dDataState(response.data)
+        //         console.log('Main, Response : ',response.data)
+        //     })
+        //     .catch((error)=>{
+        //         dispatch({
+        //             type : MAPDATA_API_ERROR,
+        //             error : error
+        //
+        //         })
+        //         console.log(error)
+        //     })
 
 
     }, [])
 
     useEffect( ()=>{
         // if (svgObjectIdClick){
-        if (state.svg.svgObjectIdClick){
-            console.log('object box ID : ' , state.svg.svgObjectIdClick)
+        if (svgClick){
+            console.log('object box ID : ' , svgClick)
 
-            dispatch ({
-                type: CONTENT_SHOW
-            })
+            dispatch(ContentShow())
+            // dispatch ({
+            //     type: CONTENT_SHOW
+            // })
             // setContentIsShow(true)
         }
 
 
-    },[state.svg.svgObjectIdClick])
+    },[svgClick])
 
     const svgShowRender = () =>{
         // if (!svgIsLoaded) {
-        if (!state.svg.svgLoading) {
+        if (!svgLoaded) {
             return (
                 <MoonLoader color={'#01b3fd'} loading={true} css={override} size={150} />
             )
@@ -99,8 +112,9 @@ const Main = (props)=> {
 
     const svgAppShowRender = ()=>{
         // if (isMap3dDataFetched & map3dDataState != null) {
-        if (!state.ivmsMapDataApi.loading & state.ivmsMapDataApi.data != null) {
-            console.log('main , state :' , state)
+        // if (!state.ivmsMapDataApi.loading & state.ivmsMapDataApi.data != null) {
+        if (!loading & dataFetched) {
+
             return(
 
                 // <SvgApp
@@ -125,7 +139,7 @@ const Main = (props)=> {
 
     const contentAppShowRender = ()=>{
         // if (contentIsShow){
-        if (state.content.contentShow){
+        if (contentShow){
             return(
 
 
