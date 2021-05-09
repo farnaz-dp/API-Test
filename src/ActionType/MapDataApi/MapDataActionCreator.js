@@ -29,7 +29,8 @@ export const fetchMapData = (token) => {
         axios(
             {
              method : 'get',
-                url :'http://192.168.100.56/api/v1/map3d/overall',
+                // url :'http://192.168.100.56/api/v1/map3d/overall',
+                url :'/api/v1/map3d/overall',
                 headers : {
                     Authorization : `token ${token}`,
                 }
