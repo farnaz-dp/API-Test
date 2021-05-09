@@ -1,9 +1,16 @@
-import {LOGIN_API_REQUEST,LOGIN_API_SUCCESS, LOGIN_API_ERROR} from '../../Constants'
+import {
+    LOGIN_API_REQUEST,
+    LOGIN_API_SUCCESS,
+    LOGIN_API_ERROR ,
+    LOGIN_SET_USER ,
+    LOGOUT_USER
+} from '../../Constants'
 
 const initState = {
     loading : false,
     token : null ,
-    error : null
+    error : null,
+    user : null
 }
 
 export const loginApiReducer = (state = initState , action) => {
@@ -17,6 +24,7 @@ export const loginApiReducer = (state = initState , action) => {
 
         case LOGIN_API_SUCCESS :
             return {
+                ...state ,
                 loading: false,
                 token: action.loginData,
                 error: false
@@ -28,6 +36,17 @@ export const loginApiReducer = (state = initState , action) => {
                 error : action.error
             }
 
+        case LOGIN_SET_USER :
+            return {
+                ...state,
+                user : action.user
+            }
+
+        case LOGOUT_USER :
+            return {
+                ...state,
+                user : null
+            }
         default :
             return state
     }
