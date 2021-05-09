@@ -1,6 +1,6 @@
 
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState,useEffect} from "react";
 import axios from "axios";
 import {LoginApiRequest,LoginApiError,fetchToken} from '../ActionType'
@@ -12,8 +12,13 @@ const Login = (props) => {
     const [passwordState , setPasswordState] =useState('')
     // const [apiFetchState , setApiFetchState] =useState(false)
 
+    const token = useSelector(state => state.loginApi.token)
+
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        console.log("Login , token is :" , token)
+    } ,[token])
 
     const handleInputChange = (event) => {
         // console.log("Event : " , event.target.name)
